@@ -20,7 +20,7 @@ public class Account {
 	private String email;
 	
 	@NotNull @Min(15)
-	private int age = 15;
+	private int age;
 	
 	public String getFirstname() {
 		return firstname;

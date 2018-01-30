@@ -21,7 +21,7 @@
 
 <body>
 	<h1>Enter email account</h1>
-	<form:form commandName="aNewAccount">
+	<form:form commandName="aValidAccount">
 		<table>
 			<tr>
 				<td>First Name: <form:input path="firstname" type="text" name="firstname"/>
@@ -45,7 +45,7 @@
 			</tr>
 			
 			<tr>
-				<td><input type="submit" value="Create" /></td>
+				<td><input type="submit" value="Validate" /></td>
 			</tr>
 		</table>
 	</form:form>

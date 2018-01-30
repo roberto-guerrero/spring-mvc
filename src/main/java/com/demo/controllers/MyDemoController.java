@@ -1,5 +1,6 @@
 package com.demo.controllers;
 
+import java.io.FileOutputStream;
 import java.util.Random;
 
 import javax.validation.Valid;
@@ -9,6 +10,9 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.demo.model.Account;
 
@@ -29,17 +33,53 @@ public class MyDemoController {
 		return "quote";
 	}
 	
-	@RequestMapping(value="/createAccount")
-	public String createAccount(@Valid @ModelAttribute("aNewAccount") Account account, BindingResult result) {
+	@RequestMapping(value="/validateAccount")
+	public String createAccount(@Valid @ModelAttribute("aValidAccount") Account account, BindingResult result) {
 		
 		if (result.hasErrors()) {
 			System.out.println("Form has errors.");
-			return "createAccount";
+			return "validateAccount";
 			
 		}
 		
 		System.out.println(account.getFirstname() + " " + account.getLastname() + " " + account.getAge() + " " + account.getAddress() + " " + account.getEmail());
 		
-		return "createAccount";
+		return "validateAccount";
 	}
+	
+	@RequestMapping(value="/account")
+	public String addAccount(@ModelAttribute("aNewAccount") Account account) {
+		
+		return "account";
+	}
+	
+	@RequestMapping(value="/accountCreated", method=RequestMethod.POST)
+	public String performCreate(Account account) {
+		
+		return "accountCreated";
+	}
+	
+	@RequestMapping(value="/myForm")
+	public String myForm() {
+		return "myForm";
+	}
+	
+	@RequestMapping(value="/handleForm")
+	public String handleForm(@RequestParam("file") MultipartFile file) {
+		
+		try {
+			if (!file.isEmpty()) {
+				byte[] bytes = file.getBytes();
+				FileOutputStream fos = new FileOutputStream("C:\\Users\\r.guerrero.flores\\Desktop\\myFile.jpg");
+				fos.write(bytes);
+				fos.close();
+				System.out.println("File saved Successfully.");
+			}
+		} catch (Exception e) {
+			System.out.println("No file saved. Error.");
+		}
+		
+		return "operationComplete";
+	}
+	
 }
