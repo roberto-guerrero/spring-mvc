@@ -53,4 +53,12 @@ public class Account {
 		this.age = age;
 	}
 	
+	@Override
+	public String toString() {
+		return "Account [firstname=" + firstname + ", lastname=" + lastname + ", address=" + address + ", email="
+				+ email + ", age=" + age + "]";
+	}
+	
+	
+	
 }
